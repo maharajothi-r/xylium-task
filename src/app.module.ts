@@ -5,7 +5,7 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 
 @Module({
- imports: [
+  imports: [
     BullModule.forRoot({
       connection: {
         host: 'localhost',
@@ -13,12 +13,10 @@ import { ExpressAdapter } from '@bull-board/express';
       },
     }),
 
-    BullBoardModule.forRoot(
-      {
-        route:'/admin/queues',
-        adapter: ExpressAdapter,
-      }
-    ),
+    BullBoardModule.forRoot({
+      route: '/admin/queues',
+      adapter: ExpressAdapter,
+    }),
     NotificationModule,
   ],
 })

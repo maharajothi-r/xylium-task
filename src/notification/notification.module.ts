@@ -13,9 +13,9 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
     }),
 
     BullBoardModule.forFeature({
-      name:'notificationQueue',
-      adapter:BullMQAdapter
-    })
+      name: 'notificationQueue',
+      adapter: BullMQAdapter,
+    }),
   ],
   providers: [NotificationService, NotificationWorker],
   controllers: [NotificationController],
