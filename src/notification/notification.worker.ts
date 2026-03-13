@@ -1,7 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-interface NotificationMailInterface{
-  email:string;
+interface NotificationMailInterface {
+  email: string;
 }
 
 @Processor('notificationQueue')
