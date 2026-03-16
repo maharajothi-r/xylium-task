@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './notification.dto';
 
@@ -9,5 +9,11 @@ export class NotificationController {
   @Post('send')
   async sendEmail(@Body() body: CreateNotificationDto) {
     return this.notificationService.addEmailJob(body);
+  }
+  @Get('redis-data')
+  async getRedisData() {
+    const data = await this.notificationService.get('emailJob:1');
+    console.log(data);
+    return data;
   }
 }

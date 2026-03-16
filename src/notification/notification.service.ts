@@ -13,15 +13,15 @@ export class NotificationService {
     await this.redis.set(key, JSON.stringify(value));
   }
 
- async get(key: string): Promise<unknown> {
-  const data = await this.redis.get(key);
+  async get(key: string): Promise<unknown> {
+    const data = await this.redis.get(key);
 
-  if (!data) {
-    return null;
+    if (!data) {
+      return null;
+    }
+
+    return JSON.parse(data) as unknown;
   }
-
-  return JSON.parse(data) as unknown;
-}
 
   async addEmailJob(data: CreateNotificationDto) {
     const jobIds: any[] = [];
@@ -42,6 +42,16 @@ export class NotificationService {
           // removeOnFail: false,
         },
       );
+
+      await this.set(`emailJob:${job.id}`, {
+      email: email,
+      subject: data.subject,
+      message: data.message,
+      status: "queued"
+    });
+
+      const redisData = await this.get(`emailJob:${job.id}`);
+      console.log(redisData);
 
       jobIds.push(job.id);
     }
